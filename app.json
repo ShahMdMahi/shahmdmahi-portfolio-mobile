@@ -6,10 +6,46 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "shahmdmahi",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "intentFilters": [
+      {
+        "action": "VIEW",
+        "data": [
+          {
+            "scheme": "https",
+            "host": "shahmdmahi.com",
+            "pathPrefix": "/portfolio"
+          },
+          {
+            "scheme": "shahmdmahi"
+          }
+        ],
+        "category": [
+          "BROWSABLE",
+          "DEFAULT"
+        ]
+      }
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shahmdmahi.shahmdmahi",
+      "associatedDomains": [
+        "applinks:shahmdmahi.com"
+      ],
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "shahmdmahi"
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +55,25 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.shahmdmahi.app",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "shahmdmahi.com",
+              "pathPrefix": "/portfolio"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
       "output": "static",
@@ -43,6 +97,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "af409843-7410-45ac-895d-68e3a67c67f0"
+      }
+    },
+    "owner": "shah.md.mahi"
   }
 }
