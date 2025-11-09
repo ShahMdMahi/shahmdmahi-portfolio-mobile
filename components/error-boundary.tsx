@@ -1,8 +1,8 @@
-import { colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { Ionicons } from "@expo/vector-icons";
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface Props {
   children: ReactNode;
@@ -30,14 +30,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
         <View style={styles.container}>
-          <Animatable.View animation="bounceIn" duration={1000} style={styles.content}>
+          <Animatable.View
+            animation="bounceIn"
+            duration={1000}
+            style={styles.content}
+          >
             <Ionicons name="alert-circle" size={80} color={colors.error} />
             <Text style={styles.title}>Oops! Something went wrong</Text>
             <Text style={styles.message}>
@@ -59,26 +63,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.dark,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 20,
   },
   content: {
-    alignItems: 'center',
+    alignItems: "center",
     maxWidth: 400,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginTop: 20,
     marginBottom: 12,
-    textAlign: 'center',
+    textAlign: "center",
   },
   message: {
     fontSize: 16,
     color: colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 24,
   },
   error: {
@@ -88,6 +92,6 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: colors.darkAccent,
     borderRadius: 8,
-    fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
+    fontFamily: Platform.OS === "ios" ? "Courier" : "monospace",
   },
 });

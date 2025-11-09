@@ -1,8 +1,8 @@
-import { colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface FormSuccessProps {
   message: string;
@@ -31,7 +31,7 @@ export const FormSuccess: React.FC<FormSuccessProps> = ({ message }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: 32,
   },
   iconContainer: {
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: colors.text,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 26,
   },
 });

@@ -1,20 +1,20 @@
-import { colors } from '@/constants/colors';
-import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import { colors } from "@/constants/colors";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
-    Dimensions,
-    Image,
-    Modal,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
+  Dimensions,
+  Image,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 interface ProjectGalleryProps {
   visible: boolean;
@@ -46,9 +46,15 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
     >
       <View style={styles.container}>
         {/* Header */}
-        <Animatable.View animation="fadeInDown" duration={500} style={styles.header}>
+        <Animatable.View
+          animation="fadeInDown"
+          duration={500}
+          style={styles.header}
+        >
           <View style={styles.headerContent}>
-            <Text style={styles.title} numberOfLines={1}>{projectTitle}</Text>
+            <Text style={styles.title} numberOfLines={1}>
+              {projectTitle}
+            </Text>
             <Pressable
               onPress={onClose}
               style={styles.closeButton}
@@ -88,20 +94,26 @@ export const ProjectGallery: React.FC<ProjectGalleryProps> = ({
         </ScrollView>
 
         {/* Pagination Dots */}
-        <Animatable.View animation="fadeInUp" duration={500} style={styles.pagination}>
+        <Animatable.View
+          animation="fadeInUp"
+          duration={500}
+          style={styles.pagination}
+        >
           {screenshots.map((_, index) => (
             <View
               key={index}
-              style={[
-                styles.dot,
-                index === activeIndex && styles.activeDot,
-              ]}
+              style={[styles.dot, index === activeIndex && styles.activeDot]}
             />
           ))}
         </Animatable.View>
 
         {/* Image Counter */}
-        <Animatable.View animation="fadeIn" duration={500} delay={300} style={styles.counter}>
+        <Animatable.View
+          animation="fadeIn"
+          duration={500}
+          delay={300}
+          style={styles.counter}
+        >
           <Text style={styles.counterText}>
             {activeIndex + 1} / {screenshots.length}
           </Text>
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark,
   },
   header: {
-    paddingTop: Platform.OS === 'ios' ? 60 : 30,
+    paddingTop: Platform.OS === "ios" ? 60 : 30,
     paddingHorizontal: 20,
     paddingBottom: 20,
     backgroundColor: colors.darkAccent,
@@ -125,13 +137,13 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
   },
   headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
     flex: 1,
     marginRight: 12,
@@ -139,8 +151,8 @@ const styles = StyleSheet.create({
   closeButton: {
     width: 44,
     height: 44,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 22,
     backgroundColor: colors.card,
   },
@@ -150,19 +162,19 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT - 200,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     borderRadius: 12,
   },
   pagination: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 20,
     gap: 8,
   },
@@ -177,10 +189,10 @@ const styles = StyleSheet.create({
     width: 24,
   },
   counter: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 80,
-    alignSelf: 'center',
-    backgroundColor: colors.card + 'CC',
+    alignSelf: "center",
+    backgroundColor: colors.card + "CC",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
@@ -189,7 +201,7 @@ const styles = StyleSheet.create({
   },
   counterText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: colors.text,
   },
 });

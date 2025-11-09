@@ -1,21 +1,29 @@
-import { AboutSection } from '@/components/sections/about-section';
-import { BlogSection } from '@/components/sections/blog-section';
-import { CertificationsSection } from '@/components/sections/certifications-section';
-import { ContactSection } from '@/components/sections/contact-section';
-import { ExperienceSection } from '@/components/sections/experience-section';
-import { Footer } from '@/components/sections/footer';
-import { HeroSection } from '@/components/sections/hero-section';
-import { ProjectsSection } from '@/components/sections/projects-section';
-import { SkillsSection } from '@/components/sections/skills-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { FloatingActionButton } from '@/components/ui/floating-action-button';
-import { OfflineIndicator } from '@/components/ui/offline-indicator';
-import { ScrollProgressIndicator } from '@/components/ui/scroll-progress-indicator';
-import { SectionDivider } from '@/components/ui/section-divider';
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import React, { useRef, useState } from 'react';
-import { ActivityIndicator, RefreshControl, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { AboutSection } from "@/components/sections/about-section";
+import { BlogSection } from "@/components/sections/blog-section";
+import { CertificationsSection } from "@/components/sections/certifications-section";
+import { ContactSection } from "@/components/sections/contact-section";
+import { ExperienceSection } from "@/components/sections/experience-section";
+import { Footer } from "@/components/sections/footer";
+import { HeroSection } from "@/components/sections/hero-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { FloatingActionButton } from "@/components/ui/floating-action-button";
+import { OfflineIndicator } from "@/components/ui/offline-indicator";
+import { ScrollProgressIndicator } from "@/components/ui/scroll-progress-indicator";
+import { SectionDivider } from "@/components/ui/section-divider";
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import React, { useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function HomeScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
@@ -31,7 +39,8 @@ export default function HomeScreen() {
 
   const handleScroll = (event: any) => {
     const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    const progress = (contentOffset.y / (contentSize.height - layoutMeasurement.height)) * 100;
+    const progress =
+      (contentOffset.y / (contentSize.height - layoutMeasurement.height)) * 100;
     setScrollProgress(Math.min(100, Math.max(0, progress)));
   };
 
@@ -41,7 +50,7 @@ export default function HomeScreen() {
       (_left, top) => {
         scrollViewRef.current?.scrollTo({ y: top, animated: true });
       },
-      () => {}
+      () => {},
     );
   };
 
@@ -51,7 +60,7 @@ export default function HomeScreen() {
       (_left, top) => {
         scrollViewRef.current?.scrollTo({ y: top, animated: true });
       },
-      () => {}
+      () => {},
     );
   };
 
@@ -68,13 +77,10 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={colors.dark}
-      />
+      <StatusBar barStyle="light-content" backgroundColor={colors.dark} />
       <ScrollProgressIndicator progress={scrollProgress} />
       <OfflineIndicator />
-      
+
       <ScrollView
         ref={scrollViewRef}
         style={styles.scrollView}
@@ -91,7 +97,10 @@ export default function HomeScreen() {
           />
         }
       >
-        <HeroSection onViewProjects={scrollToProjects} onContactMe={scrollToContact} />
+        <HeroSection
+          onViewProjects={scrollToProjects}
+          onContactMe={scrollToContact}
+        />
         <SectionDivider />
         <AboutSection />
         <SectionDivider />
@@ -114,7 +123,7 @@ export default function HomeScreen() {
         </View>
         <Footer />
       </ScrollView>
-      
+
       <FloatingActionButton onPress={scrollToContact} />
     </View>
   );
@@ -126,14 +135,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.dark,
   },
   loadingContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
     marginTop: 16,
     color: colors.text,
     fontSize: 16,
-    fontFamily: 'Inter_400Regular',
+    fontFamily: "Inter_400Regular",
   },
   scrollView: {
     flex: 1,

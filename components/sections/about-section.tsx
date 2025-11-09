@@ -1,12 +1,12 @@
-import { GradientCard } from '@/components/ui/gradient-card';
-import { ResumeDownload } from '@/components/ui/resume-download';
-import { SectionTitle } from '@/components/ui/section-title';
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { GradientCard } from "@/components/ui/gradient-card";
+import { ResumeDownload } from "@/components/ui/resume-download";
+import { SectionTitle } from "@/components/ui/section-title";
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 export const AboutSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
@@ -45,7 +45,11 @@ export const AboutSection = React.memo(() => {
             style={styles.statCard}
           >
             <View style={styles.statIconContainer}>
-              <Ionicons name={stat.icon as any} size={32} color={colors.primary} />
+              <Ionicons
+                name={stat.icon as any}
+                size={32}
+                color={colors.primary}
+              />
             </View>
             <Text style={styles.statValue}>{stat.value}</Text>
             <Text style={styles.statLabel}>{stat.label}</Text>
@@ -63,26 +67,26 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   description: {
-    fontSize: Platform.OS === 'ios' ? 16 : 15,
+    fontSize: Platform.OS === "ios" ? 16 : 15,
     color: colors.textSecondary,
     lineHeight: 24,
     marginBottom: 16,
     opacity: 0.95,
   },
   statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     marginTop: 32,
   },
   statCard: {
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: colors.card,
     padding: 20,
-    borderRadius: Platform.OS === 'ios' ? 18 : 16,
+    borderRadius: Platform.OS === "ios" ? 18 : 16,
     borderWidth: 1,
     borderColor: colors.border,
-    width: '48%',
+    width: "48%",
     marginBottom: 16,
     ...Platform.select({
       ios: {
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginBottom: 4,
     textShadowColor: colors.glow,
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 13,
     color: colors.textSecondary,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.3,
   },
 });

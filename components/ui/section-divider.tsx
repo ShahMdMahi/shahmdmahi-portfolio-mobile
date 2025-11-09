@@ -1,36 +1,28 @@
-import { colors } from '@/constants/colors';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 export const SectionDivider: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Animatable.View
-        animation="fadeIn"
-        duration={1000}
-        style={styles.line}
-      />
+      <Animatable.View animation="fadeIn" duration={1000} style={styles.line} />
       <Animatable.View
         animation="pulse"
         iterationCount="infinite"
         duration={2000}
         style={styles.dot}
       />
-      <Animatable.View
-        animation="fadeIn"
-        duration={1000}
-        style={styles.line}
-      />
+      <Animatable.View animation="fadeIn" duration={1000} style={styles.line} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 20,
   },
   line: {

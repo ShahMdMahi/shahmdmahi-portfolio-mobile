@@ -1,10 +1,10 @@
-import { colors } from '@/constants/colors';
-import { getNativeShadow } from '@/constants/native-styles';
-import { useHaptics } from '@/hooks/use-haptics';
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useRef } from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { getNativeShadow } from "@/constants/native-styles";
+import { useHaptics } from "@/hooks/use-haptics";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useRef } from "react";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface GradientCardProps {
   children: React.ReactNode;
@@ -13,8 +13,8 @@ interface GradientCardProps {
   interactive?: boolean;
 }
 
-export const GradientCard: React.FC<GradientCardProps> = ({ 
-  children, 
+export const GradientCard: React.FC<GradientCardProps> = ({
+  children,
   delay = 0,
   style,
   interactive = false,
@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   card: {
-    borderRadius: Platform.OS === 'ios' ? 20 : 18,
-    overflow: 'hidden',
-    borderWidth: Platform.OS === 'ios' ? 0.5 : 1,
+    borderRadius: Platform.OS === "ios" ? 20 : 18,
+    overflow: "hidden",
+    borderWidth: Platform.OS === "ios" ? 0.5 : 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
     ...getNativeShadow(10),
   },
   gradient: {
-    padding: Platform.OS === 'ios' ? 24 : 20,
+    padding: Platform.OS === "ios" ? 24 : 20,
   },
 });

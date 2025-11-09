@@ -1,7 +1,7 @@
-import { colors } from '@/constants/colors';
-import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import React from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface SkillBadgeProps {
   skill: string;
@@ -9,7 +9,11 @@ interface SkillBadgeProps {
   icon?: React.ReactNode;
 }
 
-export const SkillBadge: React.FC<SkillBadgeProps> = ({ skill, index, icon }) => {
+export const SkillBadge: React.FC<SkillBadgeProps> = ({
+  skill,
+  index,
+  icon,
+}) => {
   return (
     <Animatable.View
       animation="zoomIn"
@@ -30,8 +34,8 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.card,
     paddingHorizontal: 14,
     paddingVertical: 10,
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.text,
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.2,
   },
 });

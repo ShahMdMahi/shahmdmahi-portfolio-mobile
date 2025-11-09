@@ -8,9 +8,7 @@
     "scheme": "shahmdmahi",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "intentFilters": [
       {
         "action": "VIEW",
@@ -24,25 +22,18 @@
             "scheme": "shahmdmahi"
           }
         ],
-        "category": [
-          "BROWSABLE",
-          "DEFAULT"
-        ]
+        "category": ["BROWSABLE", "DEFAULT"]
       }
     ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.shahmdmahi.shahmdmahi",
-      "associatedDomains": [
-        "applinks:shahmdmahi.com"
-      ],
+      "associatedDomains": ["applinks:shahmdmahi.com"],
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleURLTypes": [
           {
-            "CFBundleURLSchemes": [
-              "shahmdmahi"
-            ]
+            "CFBundleURLSchemes": ["shahmdmahi"]
           }
         ]
       }
@@ -68,10 +59,7 @@
               "pathPrefix": "/portfolio"
             }
           ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
+          "category": ["BROWSABLE", "DEFAULT"]
         }
       ]
     },

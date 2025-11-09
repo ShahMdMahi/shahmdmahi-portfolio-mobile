@@ -1,6 +1,41 @@
-import { portfolioData as fallbackData, PortfolioData } from '@/constants/portfolio';
-import { clearPortfolioCache, getCacheStatus, getPortfolioData } from '@/utils/portfolio-service';
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import {
+  portfolioData as fallbackData,
+  PortfolioData,
+} from "@/constants/portfolio";
+import portfolioJson from "@/constants/portfolio.json";
+import {
+  clearPortfolioCache,
+  getCacheStatus,
+  getPortfolioData,
+} from "@/utils/portfolio-service";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
+// Safe initial data - use fallback if available, otherwise construct minimal data
+const getInitialData = (): PortfolioData => {
+  if (fallbackData && fallbackData.personal) {
+    return fallbackData;
+  }
+
+  // Minimal fallback if everything fails
+  return {
+    ...portfolioJson,
+    personal: {
+      ...portfolioJson.personal,
+      profileImage: null,
+    },
+    footer: {
+      ...portfolioJson.footer,
+      copyright: (year: number) =>
+        `© ${year} ${portfolioJson.footer?.copyrightText || "All rights reserved"}`,
+    },
+  } as PortfolioData;
+};
 
 interface PortfolioContextType {
   portfolioData: PortfolioData;
@@ -16,14 +51,17 @@ interface PortfolioContextType {
   } | null;
 }
 
-const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
+const PortfolioContext = createContext<PortfolioContextType | undefined>(
+  undefined,
+);
 
 interface PortfolioProviderProps {
   children: ReactNode;
 }
 
 export function PortfolioProvider({ children }: PortfolioProviderProps) {
-  const [portfolioData, setPortfolioData] = useState<PortfolioData>(fallbackData);
+  const [portfolioData, setPortfolioData] =
+    useState<PortfolioData>(getInitialData());
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,9 +88,10 @@ export function PortfolioProvider({ children }: PortfolioProviderProps) {
       const status = await getCacheStatus();
       setCacheStatus(status);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to load portfolio data';
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to load portfolio data";
       setError(errorMessage);
-      console.error('Error loading portfolio data:', err);
+      console.error("Error loading portfolio data:", err);
     } finally {
       setIsLoading(false);
     }
@@ -70,9 +109,10 @@ export function PortfolioProvider({ children }: PortfolioProviderProps) {
       const status = await getCacheStatus();
       setCacheStatus(status);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to refresh portfolio data';
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to refresh portfolio data";
       setError(errorMessage);
-      console.error('Error refreshing portfolio data:', err);
+      console.error("Error refreshing portfolio data:", err);
     } finally {
       setIsRefreshing(false);
     }
@@ -84,7 +124,7 @@ export function PortfolioProvider({ children }: PortfolioProviderProps) {
       const status = await getCacheStatus();
       setCacheStatus(status);
     } catch (err) {
-      console.error('Error clearing cache:', err);
+      console.error("Error clearing cache:", err);
     }
   };
 
@@ -108,7 +148,7 @@ export function PortfolioProvider({ children }: PortfolioProviderProps) {
 export function usePortfolio() {
   const context = useContext(PortfolioContext);
   if (context === undefined) {
-    throw new Error('usePortfolio must be used within a PortfolioProvider');
+    throw new Error("usePortfolio must be used within a PortfolioProvider");
   }
   return context;
 }

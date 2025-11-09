@@ -1,17 +1,27 @@
-import { colors } from '@/constants/colors';
-import { useHaptics } from '@/hooks/use-haptics';
-import { Ionicons } from '@expo/vector-icons';
-import { File, Paths } from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
-import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { useHaptics } from "@/hooks/use-haptics";
+import { Ionicons } from "@expo/vector-icons";
+import { File, Paths } from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface ResumeDownloadProps {
   resumeUrl: string;
 }
 
-export const ResumeDownload: React.FC<ResumeDownloadProps> = ({ resumeUrl }) => {
+export const ResumeDownload: React.FC<ResumeDownloadProps> = ({
+  resumeUrl,
+}) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const haptics = useHaptics();
 
@@ -23,40 +33,40 @@ export const ResumeDownload: React.FC<ResumeDownloadProps> = ({ resumeUrl }) => 
       // Check if sharing is available
       const isAvailable = await Sharing.isAvailableAsync();
       if (!isAvailable) {
-        Alert.alert('Error', 'Sharing is not available on this device');
+        Alert.alert("Error", "Sharing is not available on this device");
         setIsDownloading(false);
         return;
       }
 
       // Download the file using the new expo-file-system API
-      const file = new File(Paths.cache, 'shahmd_mahi_resume.pdf');
-      
+      const file = new File(Paths.cache, "shahmd_mahi_resume.pdf");
+
       // Download the file
       const response = await fetch(resumeUrl);
       if (!response.ok) {
-        throw new Error('Download failed');
+        throw new Error("Download failed");
       }
-      
+
       const arrayBuffer = await response.arrayBuffer();
       const uint8Array = new Uint8Array(arrayBuffer);
       await file.create();
       await file.write(uint8Array);
 
       haptics.success();
-      
+
       // Share the downloaded file
       await Sharing.shareAsync(file.uri, {
-        mimeType: 'application/pdf',
-        dialogTitle: 'Save Resume',
-        UTI: 'com.adobe.pdf',
+        mimeType: "application/pdf",
+        dialogTitle: "Save Resume",
+        UTI: "com.adobe.pdf",
       });
     } catch (error) {
       haptics.error();
       Alert.alert(
-        'Download Error',
-        'Failed to download resume. Please check your internet connection and try again.'
+        "Download Error",
+        "Failed to download resume. Please check your internet connection and try again.",
       );
-      console.error('Resume download error:', error);
+      console.error("Resume download error:", error);
     } finally {
       setIsDownloading(false);
     }
@@ -68,7 +78,9 @@ export const ResumeDownload: React.FC<ResumeDownloadProps> = ({ resumeUrl }) => 
         onPress={downloadResume}
         disabled={isDownloading}
         accessible={true}
-        accessibilityLabel={isDownloading ? 'Downloading resume' : 'Download resume'}
+        accessibilityLabel={
+          isDownloading ? "Downloading resume" : "Download resume"
+        }
         accessibilityHint="Double tap to download and share resume PDF"
         accessibilityRole="button"
         accessibilityState={{ disabled: isDownloading, busy: isDownloading }}
@@ -85,7 +97,7 @@ export const ResumeDownload: React.FC<ResumeDownloadProps> = ({ resumeUrl }) => 
             <Ionicons name="download-outline" size={20} color="#FFFFFF" />
           )}
           <Text style={styles.text}>
-            {isDownloading ? 'Downloading...' : 'Download Resume'}
+            {isDownloading ? "Downloading..." : "Download Resume"}
           </Text>
         </View>
       </Pressable>
@@ -116,14 +128,14 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
   },
   text: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });

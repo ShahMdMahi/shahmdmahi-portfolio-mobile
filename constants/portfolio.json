@@ -27,54 +27,117 @@
       "title": "Frontend Development",
       "icon": "code-slash",
       "skills": [
-        "React", "React Native", "Next.js", "Vue.js", "Angular",
-        "TypeScript", "JavaScript", "Tailwind", "SCSS",
-        "Material-UI", "Shadcn UI", "Redux", "tRPC", "GraphQL", "REST APIs"
+        "React",
+        "React Native",
+        "Next.js",
+        "Vue.js",
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind",
+        "SCSS",
+        "Material-UI",
+        "Shadcn UI",
+        "Redux",
+        "tRPC",
+        "GraphQL",
+        "REST APIs"
       ]
     },
     {
       "title": "Backend Development",
       "icon": "server",
       "skills": [
-        "Node.js", "Express", "Python", "Django", "Flask",
-        "PHP", "Laravel", "Java", "Spring Boot", "Go", "Dart",
-        "Ruby on Rails", "PostgreSQL", "MongoDB", "MySQL"
+        "Node.js",
+        "Express",
+        "Python",
+        "Django",
+        "Flask",
+        "PHP",
+        "Laravel",
+        "Java",
+        "Spring Boot",
+        "Go",
+        "Dart",
+        "Ruby on Rails",
+        "PostgreSQL",
+        "MongoDB",
+        "MySQL"
       ]
     },
     {
       "title": "Mobile Development",
       "icon": "phone-portrait",
       "skills": [
-        "React Native", "Expo", "iOS", "Android", "Flutter",
-        "Swift", "Kotlin", "Firebase", "Push Notifications",
-        "App Store", "Google Play", "Mobile UI/UX"
+        "React Native",
+        "Expo",
+        "iOS",
+        "Android",
+        "Flutter",
+        "Swift",
+        "Kotlin",
+        "Firebase",
+        "Push Notifications",
+        "App Store",
+        "Google Play",
+        "Mobile UI/UX"
       ]
     },
     {
       "title": "Cloud & DevOps",
       "icon": "cloud",
       "skills": [
-        "AWS", "Azure", "Google Cloud", "Docker", "Kubernetes",
-        "CI/CD", "Jenkins", "GitHub Actions", "Terraform",
-        "Linux", "Nginx", "Monitoring", "Serverless"
+        "AWS",
+        "Azure",
+        "Google Cloud",
+        "Docker",
+        "Kubernetes",
+        "CI/CD",
+        "Jenkins",
+        "GitHub Actions",
+        "Terraform",
+        "Linux",
+        "Nginx",
+        "Monitoring",
+        "Serverless"
       ]
     },
     {
       "title": "Tools & Technologies",
       "icon": "construct",
       "skills": [
-        "Git", "GitHub", "GitLab", "Jira", "VS Code",
-        "Postman", "Figma", "Adobe XD", "Webpack",
-        "Vite", "npm", "pnpm", "Agile", "Scrum"
+        "Git",
+        "GitHub",
+        "GitLab",
+        "Jira",
+        "VS Code",
+        "Postman",
+        "Figma",
+        "Adobe XD",
+        "Webpack",
+        "Vite",
+        "npm",
+        "pnpm",
+        "Agile",
+        "Scrum"
       ]
     },
     {
       "title": "Specialized Skills",
       "icon": "sparkles",
       "skills": [
-        "AI/ML Integration", "Blockchain", "Web3", "Microservices",
-        "System Design", "Security", "Testing", "Performance",
-        "SEO", "Analytics", "E-commerce", "Payment Integration"
+        "AI/ML Integration",
+        "Blockchain",
+        "Web3",
+        "Microservices",
+        "System Design",
+        "Security",
+        "Testing",
+        "Performance",
+        "SEO",
+        "Analytics",
+        "E-commerce",
+        "Payment Integration"
       ]
     }
   ],

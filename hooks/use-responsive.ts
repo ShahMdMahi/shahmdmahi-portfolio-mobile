@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Dimensions, Platform, ScaledSize } from 'react-native';
+import { useEffect, useState } from "react";
+import { Dimensions, Platform, ScaledSize } from "react-native";
 
 interface ResponsiveBreakpoints {
   isSmall: boolean;
@@ -18,11 +18,11 @@ interface ResponsiveBreakpoints {
 
 export const useResponsive = (): ResponsiveBreakpoints => {
   const [dimensions, setDimensions] = useState<ScaledSize>(
-    Dimensions.get('window')
+    Dimensions.get("window"),
   );
 
   useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
       setDimensions(window);
     });
 
@@ -40,9 +40,9 @@ export const useResponsive = (): ResponsiveBreakpoints => {
   const isXLarge = width >= 1024;
 
   // Device types
-  const isMobile = Platform.OS === 'ios' || Platform.OS === 'android';
+  const isMobile = Platform.OS === "ios" || Platform.OS === "android";
   const isTablet = isMobile && (isLarge || isXLarge);
-  const isDesktop = Platform.OS === 'web' && isXLarge;
+  const isDesktop = Platform.OS === "web" && isXLarge;
 
   // Scale factor for responsive sizing
   const baseWidth = 375; // iPhone standard width
@@ -73,7 +73,7 @@ export const responsiveSize = (size: number, scale: number): number => {
 export const responsiveSpacing = (
   base: number,
   scale: number,
-  multiplier: number = 1
+  multiplier: number = 1,
 ): number => {
   return Math.round(base * scale * multiplier);
 };

@@ -1,9 +1,9 @@
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 export const Footer: React.FC = () => {
   const { portfolioData } = usePortfolio();
@@ -18,16 +18,18 @@ export const Footer: React.FC = () => {
       >
         <Text style={styles.name}>{portfolioData.personal.name}</Text>
         <Text style={styles.tagline}>{portfolioData.personal.tagline}</Text>
-        
+
         <View style={styles.divider} />
-        
+
         <View style={styles.footer}>
           <Text style={styles.copyright}>
             {portfolioData.footer.copyright(currentYear)}
           </Text>
           <View style={styles.builtWith}>
             <Ionicons name="heart" size={16} color={colors.accent} />
-            <Text style={styles.builtText}>{portfolioData.footer.builtWithText}</Text>
+            <Text style={styles.builtText}>
+              {portfolioData.footer.builtWithText}
+            </Text>
           </View>
         </View>
       </Animatable.View>
@@ -44,11 +46,11 @@ const styles = StyleSheet.create({
     borderTopColor: colors.borderLight,
   },
   content: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   name: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginBottom: 8,
     letterSpacing: 0.5,
@@ -57,17 +59,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     marginBottom: 24,
-    textAlign: 'center',
+    textAlign: "center",
     letterSpacing: 0.2,
   },
   divider: {
-    width: '100%',
+    width: "100%",
     height: 1.5,
     backgroundColor: colors.borderLight,
     marginBottom: 20,
   },
   footer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   copyright: {
     fontSize: 13,
@@ -76,8 +78,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   builtWith: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   builtText: {
     fontSize: 12,

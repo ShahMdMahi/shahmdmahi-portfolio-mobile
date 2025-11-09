@@ -1,13 +1,15 @@
-import { colors } from '@/constants/colors';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface ParticleEffectProps {
   count?: number;
 }
 
-export const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 20 }) => {
+export const ParticleEffect: React.FC<ParticleEffectProps> = ({
+  count = 20,
+}) => {
   return (
     <View style={styles.container}>
       {Array.from({ length: count }).map((_, index) => (
@@ -32,10 +34,10 @@ export const ParticleEffect: React.FC<ParticleEffectProps> = ({ count = 20 }) =>
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    pointerEvents: 'none',
+    pointerEvents: "none",
   },
   particle: {
-    position: 'absolute',
+    position: "absolute",
     width: 8,
     height: 8,
     borderRadius: 4,

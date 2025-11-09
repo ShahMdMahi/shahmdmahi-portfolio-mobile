@@ -1,9 +1,9 @@
-import { colors } from '@/constants/colors';
-import { useHaptics } from '@/hooks/use-haptics';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Platform, Pressable, StyleSheet } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { colors } from "@/constants/colors";
+import { useHaptics } from "@/hooks/use-haptics";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Platform, Pressable, StyleSheet } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 interface FloatingActionButtonProps {
   onPress: () => void;
@@ -12,7 +12,7 @@ interface FloatingActionButtonProps {
 
 export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   onPress,
-  icon = 'send',
+  icon = "send",
 }) => {
   const haptics = useHaptics();
 
@@ -52,7 +52,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 30,
     right: 20,
     zIndex: 1000,
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...Platform.select({
       ios: {
         shadowColor: colors.primary,

@@ -1,4 +1,4 @@
-import { CustomAnimation } from 'react-native-animatable';
+import { CustomAnimation } from "react-native-animatable";
 
 // Custom animation definitions for heavy animations
 export const customAnimations = {
@@ -11,18 +11,18 @@ export const customAnimations = {
 
   // Rotate and scale
   rotateScale: {
-    0: { transform: [{ rotate: '0deg' }, { scale: 1 }] },
-    0.5: { transform: [{ rotate: '180deg' }, { scale: 1.1 }] },
-    1: { transform: [{ rotate: '360deg' }, { scale: 1 }] },
+    0: { transform: [{ rotate: "0deg" }, { scale: 1 }] },
+    0.5: { transform: [{ rotate: "180deg" }, { scale: 1.1 }] },
+    1: { transform: [{ rotate: "360deg" }, { scale: 1 }] },
   } as CustomAnimation,
 
   // Wiggle animation
   wiggle: {
-    0: { transform: [{ rotate: '0deg' }] },
-    0.25: { transform: [{ rotate: '-10deg' }] },
-    0.5: { transform: [{ rotate: '10deg' }] },
-    0.75: { transform: [{ rotate: '-10deg' }] },
-    1: { transform: [{ rotate: '0deg' }] },
+    0: { transform: [{ rotate: "0deg" }] },
+    0.25: { transform: [{ rotate: "-10deg" }] },
+    0.5: { transform: [{ rotate: "10deg" }] },
+    0.75: { transform: [{ rotate: "-10deg" }] },
+    1: { transform: [{ rotate: "0deg" }] },
   } as CustomAnimation,
 
   // Glow pulse
@@ -58,24 +58,24 @@ export const customAnimations = {
 
   // Flip in
   flipIn: {
-    0: { transform: [{ rotateY: '90deg' }], opacity: 0 },
-    0.5: { transform: [{ rotateY: '0deg' }], opacity: 1 },
+    0: { transform: [{ rotateY: "90deg" }], opacity: 0 },
+    0.5: { transform: [{ rotateY: "0deg" }], opacity: 1 },
   } as CustomAnimation,
 
   // Swing
   swing: {
-    0: { transform: [{ rotate: '0deg' }] },
-    0.2: { transform: [{ rotate: '15deg' }] },
-    0.4: { transform: [{ rotate: '-10deg' }] },
-    0.6: { transform: [{ rotate: '5deg' }] },
-    0.8: { transform: [{ rotate: '-5deg' }] },
-    1: { transform: [{ rotate: '0deg' }] },
+    0: { transform: [{ rotate: "0deg" }] },
+    0.2: { transform: [{ rotate: "15deg" }] },
+    0.4: { transform: [{ rotate: "-10deg" }] },
+    0.6: { transform: [{ rotate: "5deg" }] },
+    0.8: { transform: [{ rotate: "-5deg" }] },
+    1: { transform: [{ rotate: "0deg" }] },
   } as CustomAnimation,
 
   // Zoom in rotate
   zoomInRotate: {
-    0: { transform: [{ scale: 0 }, { rotate: '-180deg' }], opacity: 0 },
-    1: { transform: [{ scale: 1 }, { rotate: '0deg' }], opacity: 1 },
+    0: { transform: [{ scale: 0 }, { rotate: "-180deg" }], opacity: 0 },
+    1: { transform: [{ scale: 1 }, { rotate: "0deg" }], opacity: 1 },
   } as CustomAnimation,
 
   // Fade in down big
@@ -103,41 +103,44 @@ export const customAnimations = {
 // Animation presets for different components
 export const animationPresets = {
   heroEntry: {
-    animation: 'fadeInDownBig' as const,
+    animation: "fadeInDownBig" as const,
     duration: 1200,
     delay: 0,
   },
   cardEntry: {
-    animation: 'fadeInUp' as const,
+    animation: "fadeInUp" as const,
     duration: 800,
     delay: 200,
   },
   iconPulse: {
-    animation: 'pulse' as const,
+    animation: "pulse" as const,
     duration: 2000,
-    iterationCount: 'infinite' as const,
+    iterationCount: "infinite" as const,
   },
   buttonHover: {
-    animation: 'bounceIn' as const,
+    animation: "bounceIn" as const,
     duration: 600,
     delay: 0,
   },
   listItem: {
-    animation: 'slideInRight' as const,
+    animation: "slideInRight" as const,
     duration: 600,
   },
   modalEntry: {
-    animation: 'zoomIn' as const,
+    animation: "zoomIn" as const,
     duration: 500,
   },
   badge: {
-    animation: 'bounceIn' as const,
+    animation: "bounceIn" as const,
     duration: 800,
   },
 };
 
 // Stagger delay calculator
-export const getStaggerDelay = (index: number, baseDelay: number = 100): number => {
+export const getStaggerDelay = (
+  index: number,
+  baseDelay: number = 100,
+): number => {
   return baseDelay * index;
 };
 

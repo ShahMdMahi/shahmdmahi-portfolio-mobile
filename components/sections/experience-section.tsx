@@ -1,11 +1,11 @@
-import { GradientCard } from '@/components/ui/gradient-card';
-import { SectionTitle } from '@/components/ui/section-title';
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { GradientCard } from "@/components/ui/gradient-card";
+import { SectionTitle } from "@/components/ui/section-title";
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
 
 export const ExperienceSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
@@ -29,7 +29,11 @@ export const ExperienceSection = React.memo(() => {
                 delay={200 + index * 100}
                 style={[styles.timelineDot, { backgroundColor: exp.color }]}
               >
-                <Ionicons name={exp.icon as any} size={24} color={colors.text} />
+                <Ionicons
+                  name={exp.icon as any}
+                  size={24}
+                  color={colors.text}
+                />
               </Animatable.View>
               {index < experiences.length - 1 && (
                 <View style={styles.timelineLine} />
@@ -45,15 +49,24 @@ export const ExperienceSection = React.memo(() => {
                       <Text style={styles.position}>{exp.position}</Text>
                       <Text style={styles.company}>{exp.company}</Text>
                     </View>
-                    <View style={[styles.periodBadge, { backgroundColor: exp.color + '20' }]}>
-                      <Text style={[styles.period, { color: exp.color }]}>{exp.period}</Text>
+                    <View
+                      style={[
+                        styles.periodBadge,
+                        { backgroundColor: exp.color + "20" },
+                      ]}
+                    >
+                      <Text style={[styles.period, { color: exp.color }]}>
+                        {exp.period}
+                      </Text>
                     </View>
                   </View>
 
                   <Text style={styles.description}>{exp.description}</Text>
 
                   <View style={styles.achievements}>
-                    <Text style={styles.achievementsTitle}>Key Achievements:</Text>
+                    <Text style={styles.achievementsTitle}>
+                      Key Achievements:
+                    </Text>
                     {exp.achievements.map((achievement, i) => (
                       <Animatable.View
                         key={i}
@@ -62,8 +75,14 @@ export const ExperienceSection = React.memo(() => {
                         delay={500 + index * 100 + i * 50}
                         style={styles.achievementItem}
                       >
-                        <Ionicons name="checkmark-circle" size={18} color={colors.success} />
-                        <Text style={styles.achievementText}>{achievement}</Text>
+                        <Ionicons
+                          name="checkmark-circle"
+                          size={18}
+                          color={colors.success}
+                        />
+                        <Text style={styles.achievementText}>
+                          {achievement}
+                        </Text>
                       </Animatable.View>
                     ))}
                   </View>
@@ -87,19 +106,19 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   timelineItem: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 28,
   },
   timelineLeft: {
-    alignItems: 'center',
+    alignItems: "center",
     marginRight: 16,
   },
   timelineDot: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 3,
     borderColor: colors.dark,
     ...Platform.select({
@@ -124,7 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   experienceCard: {
-    width: '100%',
+    width: "100%",
   },
   header: {
     marginBottom: 12,
@@ -134,7 +153,7 @@ const styles = StyleSheet.create({
   },
   position: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginBottom: 4,
     letterSpacing: 0.3,
@@ -142,7 +161,7 @@ const styles = StyleSheet.create({
   company: {
     fontSize: 15,
     color: colors.primary,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.2,
   },
   periodBadge: {
@@ -151,11 +170,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1.5,
     borderColor: colors.borderLight,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
   },
   period: {
     fontSize: 13,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 0.2,
   },
   description: {
@@ -170,14 +189,14 @@ const styles = StyleSheet.create({
   },
   achievementsTitle: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
     marginBottom: 10,
     letterSpacing: 0.3,
   },
   achievementItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     marginBottom: 8,
   },
   achievementText: {

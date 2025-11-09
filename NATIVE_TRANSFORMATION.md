@@ -7,12 +7,14 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 ## 📱 New Native Features
 
 ### 1. **Haptic Feedback System** (`hooks/use-haptics.ts`)
+
 - ✅ Light, medium, and heavy impact feedback
 - ✅ Success, warning, and error notifications
 - ✅ Selection feedback for scrollable lists
 - ✅ Auto-detects iOS/Android and only triggers on mobile devices
 
 ### 2. **Native Style System** (`constants/native-styles.ts`)
+
 - ✅ Platform-specific shadows (iOS shadowRadius, Android elevation)
 - ✅ Native glow effects for important elements
 - ✅ iOS vs Android border radius differences
@@ -20,6 +22,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 - ✅ Native card and button style generators
 
 ### 3. **Centralized Data Management** (`constants/portfolio.ts`)
+
 - ✅ All your personal info, skills, projects, experience in one place
 - ✅ Easy to edit without touching component code
 - ✅ Profile image path configured: `assets/shahmdmahi.png`
@@ -27,6 +30,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 - ✅ Contact information with links
 
 ### 4. **Responsive Design Hook** (`hooks/use-responsive.ts`)
+
 - ✅ Breakpoint detection (small, medium, large, xlarge)
 - ✅ Device type detection (mobile, tablet, desktop)
 - ✅ Orientation tracking (portrait/landscape)
@@ -35,6 +39,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 ## 🎨 Enhanced Components
 
 ### **AnimatedButton** (`components/ui/animated-button.tsx`)
+
 - ✅ Haptic feedback on press
 - ✅ Native spring animations
 - ✅ Platform-specific sizing (iOS slightly larger)
@@ -43,6 +48,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 - ❌ Removed all web-specific code (boxShadow, transitions)
 
 ### **GradientCard** (`components/ui/gradient-card.tsx`)
+
 - ✅ Smooth fade-in animations
 - ✅ Interactive mode with haptic feedback
 - ✅ Platform-optimized border radius
@@ -51,6 +57,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 - ❌ Removed web transitions
 
 ### **HeroSection** (`components/sections/hero-section.tsx`)
+
 - ✅ Profile image integration from assets
 - ✅ Animated background circles with pulse
 - ✅ Pressable social icons with haptics
@@ -62,6 +69,7 @@ Your portfolio app has been completely transformed into a **native-first mobile 
 ## 📝 How To Edit Your Data
 
 ### Edit Personal Information
+
 Open `constants/portfolio.ts` and update:
 
 ```typescript
@@ -75,6 +83,7 @@ personal: {
 ```
 
 ### Edit Skills
+
 ```typescript
 skills: [
   {
@@ -88,47 +97,50 @@ skills: [
 
 ###
 
- Edit Projects
+Edit Projects
+
 ```typescript
 projects: [
   {
-    title: 'Project Name',
-    description: 'Description...',
-    technologies: ['Tech1', 'Tech2'],
-    icon: 'ionicon-name',
+    title: "Project Name",
+    description: "Description...",
+    technologies: ["Tech1", "Tech2"],
+    icon: "ionicon-name",
     color: colors.primary,
-    link: 'https://...',
+    link: "https://...",
   },
-]
+];
 ```
 
 ### Edit Contact Info
+
 ```typescript
 contact: {
   info: [
     {
-      icon: 'mail',
-      label: 'Email',
-      value: 'your@email.com',
+      icon: "mail",
+      label: "Email",
+      value: "your@email.com",
       color: colors.primary,
-      link: 'mailto:your@email.com',
+      link: "mailto:your@email.com",
     },
-  ]
+  ];
 }
 ```
 
 ### Edit Social Links
+
 ```typescript
 social: {
   links: [
     {
-      name: 'GitHub',
-      icon: 'logo-github',
-      url: 'https://github.com/username',
+      name: "GitHub",
+      icon: "logo-github",
+      url: "https://github.com/username",
       color: colors.text,
       borderColor: colors.text,
     },
-  ]
+  ];
 }
 ```
 
@@ -155,6 +167,7 @@ social: {
 ## 📦 Files Modified
 
 ### Created:
+
 - ✅ `hooks/use-haptics.ts` - Haptic feedback system
 - ✅ `hooks/use-responsive.ts` - Responsive breakpoints
 - ✅ `constants/native-styles.ts` - Native styling utilities
@@ -162,6 +175,7 @@ social: {
 - ✅ `constants/animations.ts` - Custom animation definitions
 
 ### Updated:
+
 - ✅ `components/ui/animated-button.tsx` - Native interactions
 - ✅ `components/ui/gradient-card.tsx` - Native styling
 - ✅ `components/sections/hero-section.tsx` - Image + haptics
@@ -203,14 +217,14 @@ npm start
 
 ## 🎨 Platform Differences
 
-| Feature | iOS | Android |
-|---------|-----|---------|
-| Shadows | shadowRadius | elevation |
-| Border Radius | Slightly larger | Standard |
-| Font Weight | 600 | bold |
-| Button Padding | 32/16 | 28/14 |
+| Feature         | iOS             | Android         |
+| --------------- | --------------- | --------------- |
+| Shadows         | shadowRadius    | elevation       |
+| Border Radius   | Slightly larger | Standard        |
+| Font Weight     | 600             | bold            |
+| Button Padding  | 32/16           | 28/14           |
 | Haptic Feedback | ✅ Full support | ✅ Full support |
-| Animations | Spring-based | Standard |
+| Animations      | Spring-based    | Standard        |
 
 ## 🔥 Key Improvements
 

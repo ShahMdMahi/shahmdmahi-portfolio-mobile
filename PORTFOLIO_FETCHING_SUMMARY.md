@@ -10,7 +10,7 @@ Your app now automatically fetches portfolio data from GitHub on every launch, w
 ✅ **24-hour cache** - Fast load times with periodic updates  
 ✅ **Offline support** - Works without internet using cached data  
 ✅ **Pull-to-refresh** - Manual refresh anytime  
-✅ **Smart fallbacks** - GitHub → Cache → Built-in data  
+✅ **Smart fallbacks** - GitHub → Cache → Built-in data
 
 ## Data Source
 
@@ -33,28 +33,33 @@ Update `constants/portfolio.json` on GitHub, and all app instances will fetch th
 ## Files Created/Modified
 
 ### New Files:
+
 - `utils/portfolio-service.ts` - Core fetching & caching logic
 - `contexts/portfolio-context.tsx` - React Context for state management
 - `PORTFOLIO_DATA_FETCHING.md` - Detailed documentation
 
 ### Modified Files:
+
 - `app/_layout.tsx` - Added PortfolioProvider wrapper
 - `app/(root)/index.tsx` - Added loading state & refresh
 - All section components - Updated to use `usePortfolio()` hook
 
 ### Dependencies Added:
+
 - `@react-native-async-storage/async-storage@^2.2.0`
 
 ## Usage in Components
 
 Instead of:
+
 ```typescript
-import { portfolioData } from '@/constants/portfolio';
+import { portfolioData } from "@/constants/portfolio";
 ```
 
 Now use:
+
 ```typescript
-import { usePortfolio } from '@/contexts/portfolio-context';
+import { usePortfolio } from "@/contexts/portfolio-context";
 
 const { portfolioData } = usePortfolio();
 ```
@@ -69,19 +74,20 @@ const { portfolioData } = usePortfolio();
 ## Cache Management
 
 ```typescript
-const { 
-  portfolioData,   // Current data
-  isLoading,       // Initial load state
-  isRefreshing,    // Refresh state
-  refreshData,     // Force refresh
-  clearCache,      // Clear cache
-  cacheStatus      // Cache info
+const {
+  portfolioData, // Current data
+  isLoading, // Initial load state
+  isRefreshing, // Refresh state
+  refreshData, // Force refresh
+  clearCache, // Clear cache
+  cacheStatus, // Cache info
 } = usePortfolio();
 ```
 
 ## Console Logs
 
 Watch for these logs during development:
+
 - `Fetching portfolio data from GitHub...`
 - `Using cached portfolio data`
 - `Cache expired, fetching fresh data...`
@@ -90,11 +96,13 @@ Watch for these logs during development:
 ## Troubleshooting
 
 **Data not updating?**
+
 - Wait 24 hours or pull-to-refresh
 - Check GitHub URL is accessible
 - Verify internet connection
 
 **App won't load?**
+
 - Built-in fallback data will be used
 - Check console for errors
 - Clear cache: `AsyncStorage.clear()`

@@ -1,14 +1,17 @@
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { SectionTitle } from '../ui/section-title';
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import * as Animatable from "react-native-animatable";
+import { SectionTitle } from "../ui/section-title";
 
 export const CertificationsSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
-  const renderCertification = (item: typeof portfolioData.certifications[0], index: number) => (
+  const renderCertification = (
+    item: (typeof portfolioData.certifications)[0],
+    index: number,
+  ) => (
     <Animatable.View
       key={index}
       animation="fadeInUp"
@@ -17,12 +20,16 @@ export const CertificationsSection = React.memo(() => {
       style={styles.cardWrapper}
     >
       <View style={[styles.card, { borderTopColor: item.color }]}>
-        <View style={[styles.iconContainer, { backgroundColor: item.color + '20' }]}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: item.color + "20" }]}
+        >
           <Ionicons name={item.icon as any} size={28} color={item.color} />
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+          <Text style={styles.title} numberOfLines={2}>
+            {item.title}
+          </Text>
           <Text style={styles.issuer}>{item.issuer}</Text>
           <Text style={styles.date}>{item.date}</Text>
         </View>
@@ -39,7 +46,9 @@ export const CertificationsSection = React.memo(() => {
       <SectionTitle title="Certifications & Awards" />
 
       <View style={styles.grid}>
-        {portfolioData.certifications.map((item, index) => renderCertification(item, index))}
+        {portfolioData.certifications.map((item, index) =>
+          renderCertification(item, index),
+        )}
       </View>
     </View>
   );
@@ -54,14 +63,14 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   cardWrapper: {
-    width: '100%',
+    width: "100%",
   },
   card: {
     backgroundColor: colors.card,
     borderRadius: 16,
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 14,
     borderTopWidth: 3,
     ...Platform.select({
@@ -80,15 +89,15 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   content: {
     flex: 1,
   },
   title: {
     fontSize: 15,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
     marginBottom: 4,
     lineHeight: 20,
@@ -101,13 +110,13 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 11,
     color: colors.textMuted,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   badge: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -1,12 +1,14 @@
-import { colors } from '@/constants/colors';
-import React, { useEffect } from 'react';
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { colors } from "@/constants/colors";
+import React, { useEffect } from "react";
+import { Animated, Platform, StyleSheet, View } from "react-native";
 
 interface ScrollProgressIndicatorProps {
   progress: number;
 }
 
-export const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = ({ progress }) => {
+export const ScrollProgressIndicator: React.FC<
+  ScrollProgressIndicatorProps
+> = ({ progress }) => {
   const width = new Animated.Value(0);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = (
           {
             width: width.interpolate({
               inputRange: [0, 100],
-              outputRange: ['0%', '100%'],
+              outputRange: ["0%", "100%"],
             }),
           },
         ]}
@@ -37,8 +39,8 @@ export const ScrollProgressIndicator: React.FC<ScrollProgressIndicatorProps> = (
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 47 : 0,
+    position: "absolute",
+    top: Platform.OS === "ios" ? 47 : 0,
     left: 0,
     right: 0,
     height: 3,
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   progressBar: {
-    height: '100%',
+    height: "100%",
     backgroundColor: colors.primary,
     shadowColor: colors.glow,
     shadowOffset: { width: 0, height: 0 },

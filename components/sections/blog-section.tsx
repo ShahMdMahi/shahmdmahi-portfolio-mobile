@@ -1,12 +1,21 @@
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { useHaptics } from '@/hooks/use-haptics';
-import { Ionicons } from '@expo/vector-icons';
-import * as Linking from 'expo-linking';
-import React from 'react';
-import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { SectionTitle } from '../ui/section-title';
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { useHaptics } from "@/hooks/use-haptics";
+import { Ionicons } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
+import React from "react";
+import {
+  Alert,
+  Image,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
+import { SectionTitle } from "../ui/section-title";
 
 export const BlogSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
@@ -19,14 +28,17 @@ export const BlogSection = React.memo(() => {
       if (canOpen) {
         await Linking.openURL(url);
       } else {
-        Alert.alert('Error', 'Cannot open article link');
+        Alert.alert("Error", "Cannot open article link");
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to open article');
+      Alert.alert("Error", "Failed to open article");
     }
   };
 
-  const renderArticle = (item: typeof portfolioData.blog[0], index: number) => (
+  const renderArticle = (
+    item: (typeof portfolioData.blog)[0],
+    index: number,
+  ) => (
     <Animatable.View
       key={index}
       animation="fadeInUp"
@@ -42,28 +54,40 @@ export const BlogSection = React.memo(() => {
         ]}
       >
         <Image source={{ uri: item.image }} style={styles.image} />
-        
+
         <View style={[styles.categoryBadge, { backgroundColor: item.color }]}>
           <Text style={styles.categoryText}>{item.category}</Text>
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-          <Text style={styles.excerpt} numberOfLines={3}>{item.excerpt}</Text>
+          <Text style={styles.title} numberOfLines={2}>
+            {item.title}
+          </Text>
+          <Text style={styles.excerpt} numberOfLines={3}>
+            {item.excerpt}
+          </Text>
 
           <View style={styles.meta}>
             <View style={styles.metaItem}>
-              <Ionicons name="calendar-outline" size={14} color={colors.textMuted} />
+              <Ionicons
+                name="calendar-outline"
+                size={14}
+                color={colors.textMuted}
+              />
               <Text style={styles.metaText}>
-                {new Date(item.date).toLocaleDateString('en-US', { 
-                  month: 'short', 
-                  day: 'numeric',
-                  year: 'numeric'
+                {new Date(item.date).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
                 })}
               </Text>
             </View>
             <View style={styles.metaItem}>
-              <Ionicons name="time-outline" size={14} color={colors.textMuted} />
+              <Ionicons
+                name="time-outline"
+                size={14}
+                color={colors.textMuted}
+              />
               <Text style={styles.metaText}>{item.readTime}</Text>
             </View>
           </View>
@@ -108,7 +132,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.card,
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...Platform.select({
       ios: {
         shadowColor: colors.shadow,
@@ -122,12 +146,12 @@ const styles = StyleSheet.create({
     }),
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 160,
     backgroundColor: colors.dark,
   },
   categoryBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 12,
     right: 12,
     paddingHorizontal: 12,
@@ -136,16 +160,16 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    textTransform: 'uppercase',
+    fontWeight: "700",
+    color: "#FFFFFF",
+    textTransform: "uppercase",
   },
   content: {
     padding: 16,
   },
   title: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
     marginBottom: 8,
     lineHeight: 24,
@@ -157,13 +181,13 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   meta: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
     marginBottom: 12,
   },
   metaItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
   },
   metaText: {
@@ -171,13 +195,13 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
   },
   readMore: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
   },
   readMoreText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: colors.primary,
   },
 });

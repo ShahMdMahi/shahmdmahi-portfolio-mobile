@@ -1,10 +1,17 @@
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { SectionTitle } from '../ui/section-title';
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import {
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
+import { SectionTitle } from "../ui/section-title";
 
 export const TestimonialsSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
@@ -14,7 +21,7 @@ export const TestimonialsSection = React.memo(() => {
         {[...Array(5)].map((_, index) => (
           <Ionicons
             key={index}
-            name={index < rating ? 'star' : 'star-outline'}
+            name={index < rating ? "star" : "star-outline"}
             size={16}
             color={colors.warning}
           />
@@ -23,7 +30,10 @@ export const TestimonialsSection = React.memo(() => {
     );
   };
 
-  const renderTestimonial = (item: typeof portfolioData.testimonials[0], index: number) => (
+  const renderTestimonial = (
+    item: (typeof portfolioData.testimonials)[0],
+    index: number,
+  ) => (
     <Animatable.View
       key={index}
       animation="fadeInUp"
@@ -45,7 +55,12 @@ export const TestimonialsSection = React.memo(() => {
       <Text style={styles.text}>{item.text}</Text>
 
       <View style={styles.quoteIcon}>
-        <Ionicons name="chatbox-ellipses" size={24} color={item.color} style={{ opacity: 0.3 }} />
+        <Ionicons
+          name="chatbox-ellipses"
+          size={24}
+          color={item.color}
+          style={{ opacity: 0.3 }}
+        />
       </View>
     </Animatable.View>
   );
@@ -61,7 +76,9 @@ export const TestimonialsSection = React.memo(() => {
         snapToInterval={330}
         decelerationRate="fast"
       >
-        {portfolioData.testimonials.map((item, index) => renderTestimonial(item, index))}
+        {portfolioData.testimonials.map((item, index) =>
+          renderTestimonial(item, index),
+        )}
       </ScrollView>
     </View>
   );
@@ -94,8 +111,8 @@ const styles = StyleSheet.create({
     }),
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   avatar: {
@@ -111,13 +128,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 17,
-    fontWeight: '700',
+    fontWeight: "700",
     color: colors.text,
     marginBottom: 2,
   },
   role: {
     fontSize: 13,
-    fontWeight: '500',
+    fontWeight: "500",
     color: colors.textSecondary,
     marginBottom: 2,
   },
@@ -126,7 +143,7 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
   },
   starsContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 4,
     marginBottom: 12,
   },
@@ -134,10 +151,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     color: colors.textSecondary,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   quoteIcon: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 16,
     right: 16,
   },

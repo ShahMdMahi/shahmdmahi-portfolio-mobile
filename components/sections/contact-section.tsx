@@ -1,23 +1,32 @@
-import { AnimatedButton } from '@/components/ui/animated-button';
-import { FormSuccess } from '@/components/ui/form-success';
-import { GradientCard } from '@/components/ui/gradient-card';
-import { ParticleEffect } from '@/components/ui/particle-effect';
-import { SectionTitle } from '@/components/ui/section-title';
-import { colors } from '@/constants/colors';
-import { usePortfolio } from '@/contexts/portfolio-context';
-import { useHaptics } from '@/hooks/use-haptics';
-import { Ionicons } from '@expo/vector-icons';
-import * as MailComposer from 'expo-mail-composer';
-import React, { useState } from 'react';
-import { Alert, Linking, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import { AnimatedButton } from "@/components/ui/animated-button";
+import { FormSuccess } from "@/components/ui/form-success";
+import { GradientCard } from "@/components/ui/gradient-card";
+import { ParticleEffect } from "@/components/ui/particle-effect";
+import { SectionTitle } from "@/components/ui/section-title";
+import { colors } from "@/constants/colors";
+import { usePortfolio } from "@/contexts/portfolio-context";
+import { useHaptics } from "@/hooks/use-haptics";
+import { Ionicons } from "@expo/vector-icons";
+import * as MailComposer from "expo-mail-composer";
+import React, { useState } from "react";
+import {
+  Alert,
+  Linking,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import * as Animatable from "react-native-animatable";
 
 export const ContactSection = React.memo(() => {
   const { portfolioData } = usePortfolio();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
@@ -28,25 +37,28 @@ export const ContactSection = React.memo(() => {
   const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.message) {
       haptics.error();
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert("Error", "Please fill in all fields");
       return;
     }
 
     try {
       const isAvailable = await MailComposer.isAvailableAsync();
-      
+
       if (!isAvailable) {
         haptics.error();
         Alert.alert(
-          'Email Not Available',
-          'Please configure an email account on your device or contact me directly.',
-          [{ text: 'OK' }]
+          "Email Not Available",
+          "Please configure an email account on your device or contact me directly.",
+          [{ text: "OK" }],
         );
         return;
       }
 
       await MailComposer.composeAsync({
-        recipients: [portfolioData.contact.info.find(i => i.label === 'Email')?.value || ''],
+        recipients: [
+          portfolioData.contact.info.find((i) => i.label === "Email")?.value ||
+            "",
+        ],
         subject: `Portfolio Contact: ${formData.name}`,
         body: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
       });
@@ -57,11 +69,11 @@ export const ContactSection = React.memo(() => {
       setTimeout(() => {
         setShowParticles(false);
         setIsSubmitted(false);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: "", email: "", message: "" });
       }, 3000);
     } catch (error) {
       haptics.error();
-      Alert.alert('Error', 'Failed to open email composer. Please try again.');
+      Alert.alert("Error", "Failed to open email composer. Please try again.");
     }
   };
 
@@ -88,14 +100,26 @@ export const ContactSection = React.memo(() => {
                 disabled={!info.link}
                 style={({ pressed }) => [
                   styles.infoCard,
-                  pressed && info.link && { transform: [{ scale: 0.98 }], opacity: 0.9 },
+                  pressed &&
+                    info.link && { transform: [{ scale: 0.98 }], opacity: 0.9 },
                 ]}
               >
-                <View style={[styles.infoIcon, { backgroundColor: info.color + '20' }]}>
-                  <Ionicons name={info.icon as any} size={24} color={info.color} />
+                <View
+                  style={[
+                    styles.infoIcon,
+                    { backgroundColor: info.color + "20" },
+                  ]}
+                >
+                  <Ionicons
+                    name={info.icon as any}
+                    size={24}
+                    color={info.color}
+                  />
                 </View>
                 <Text style={styles.infoLabel}>{info.label}</Text>
-                <Text style={styles.infoValue} numberOfLines={2}>{info.value}</Text>
+                <Text style={styles.infoValue} numberOfLines={2}>
+                  {info.value}
+                </Text>
               </Pressable>
             </Animatable.View>
           ))}
@@ -109,7 +133,9 @@ export const ContactSection = React.memo(() => {
               <FormSuccess message="Message sent successfully! I'll get back to you soon." />
             ) : (
               <>
-                <Text style={styles.formTitle}>{portfolioData.contact.form.title}</Text>
+                <Text style={styles.formTitle}>
+                  {portfolioData.contact.form.title}
+                </Text>
 
                 <Animatable.View
                   animation="fadeInUp"
@@ -123,7 +149,9 @@ export const ContactSection = React.memo(() => {
                     placeholder="Your Name"
                     placeholderTextColor={colors.textMuted}
                     value={formData.name}
-                    onChangeText={(text) => setFormData({ ...formData, name: text })}
+                    onChangeText={(text) =>
+                      setFormData({ ...formData, name: text })
+                    }
                   />
                 </Animatable.View>
 
@@ -139,7 +167,9 @@ export const ContactSection = React.memo(() => {
                     placeholder="your.email@example.com"
                     placeholderTextColor={colors.textMuted}
                     value={formData.email}
-                    onChangeText={(text) => setFormData({ ...formData, email: text })}
+                    onChangeText={(text) =>
+                      setFormData({ ...formData, email: text })
+                    }
                     keyboardType="email-address"
                     autoCapitalize="none"
                   />
@@ -157,7 +187,9 @@ export const ContactSection = React.memo(() => {
                     placeholder="Tell me about your project..."
                     placeholderTextColor={colors.textMuted}
                     value={formData.message}
-                    onChangeText={(text) => setFormData({ ...formData, message: text })}
+                    onChangeText={(text) =>
+                      setFormData({ ...formData, message: text })
+                    }
                     multiline
                     numberOfLines={6}
                     textAlignVertical="top"
@@ -173,7 +205,9 @@ export const ContactSection = React.memo(() => {
                     title="Send Message"
                     onPress={handleSubmit}
                     variant="primary"
-                    icon={<Ionicons name="send" size={20} color={colors.text} />}
+                    icon={
+                      <Ionicons name="send" size={20} color={colors.text} />
+                    }
                     fullWidth
                   />
                 </Animatable.View>
@@ -206,7 +240,11 @@ export const ContactSection = React.memo(() => {
                     pressed && { transform: [{ scale: 0.95 }], opacity: 0.8 },
                   ]}
                 >
-                  <Ionicons name={social.icon as any} size={32} color={social.color} />
+                  <Ionicons
+                    name={social.icon as any}
+                    size={32}
+                    color={social.color}
+                  />
                 </Pressable>
               </Animatable.View>
             ))}
@@ -224,22 +262,22 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   content: {
-    width: '100%',
+    width: "100%",
   },
   infoGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginBottom: 32,
     marginHorizontal: -6,
   },
   infoCardWrapper: {
-    width: '50%',
+    width: "50%",
     paddingHorizontal: 6,
     marginBottom: 12,
   },
   infoCard: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.card,
     paddingVertical: 18,
     paddingHorizontal: 12,
@@ -263,8 +301,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 10,
     borderWidth: 1.5,
     borderColor: colors.borderLight,
@@ -273,27 +311,27 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.textMuted,
     marginBottom: 5,
-    fontWeight: '600',
-    textTransform: 'uppercase',
+    fontWeight: "600",
+    textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   infoValue: {
     fontSize: 12,
     color: colors.text,
-    fontWeight: '600',
-    textAlign: 'center',
+    fontWeight: "600",
+    textAlign: "center",
     letterSpacing: 0.3,
     lineHeight: 17,
   },
   form: {
-    width: '100%',
+    width: "100%",
   },
   formTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginBottom: 24,
-    textAlign: 'center',
+    textAlign: "center",
     letterSpacing: 0.3,
   },
   inputContainer: {
@@ -301,7 +339,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     color: colors.text,
     marginBottom: 8,
     letterSpacing: 0.2,
@@ -322,19 +360,19 @@ const styles = StyleSheet.create({
   },
   socialSection: {
     marginTop: 48,
-    alignItems: 'center',
+    alignItems: "center",
   },
   socialTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.text,
     marginBottom: 20,
     letterSpacing: 0.3,
   },
   socialLinks: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
     gap: 12,
   },
   socialLink: {
@@ -342,8 +380,8 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     backgroundColor: colors.card,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1.5,
     ...Platform.select({
       ios: {

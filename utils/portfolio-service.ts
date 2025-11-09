@@ -1,13 +1,19 @@
-import { portfolioData as fallbackData, PortfolioData } from '@/constants/portfolio';
-import portfolioJson from '@/constants/portfolio.json';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+    portfolioData as fallbackData,
+    PortfolioData,
+} from "@/constants/portfolio";
+import portfolioJson from "@/constants/portfolio.json";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const PORTFOLIO_CACHE_KEY = '@portfolio_data';
-const PORTFOLIO_TIMESTAMP_KEY = '@portfolio_timestamp';
+const PORTFOLIO_CACHE_KEY = "@portfolio_data";
+const PORTFOLIO_TIMESTAMP_KEY = "@portfolio_timestamp";
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 // GitHub raw content URL for the portfolio.json file
-const GITHUB_JSON_URL = 'https://raw.githubusercontent.com/ShahMdMahi/shahmdmahi-portfolio-mobile/master/constants/portfolio.json';
+// Use environment variable if available, fallback to hardcoded URL
+const GITHUB_JSON_URL =
+  process.env.EXPO_PUBLIC_PORTFOLIO_GITHUB_URL ||
+  "https://raw.githubusercontent.com/ShahMdMahi/shahmdmahi-portfolio-mobile/master/constants/portfolio.json";
 
 /**
  * Fetches portfolio data from GitHub JSON file
@@ -15,11 +21,11 @@ const GITHUB_JSON_URL = 'https://raw.githubusercontent.com/ShahMdMahi/shahmdmahi
  */
 async function fetchPortfolioFromGitHub(): Promise<PortfolioData | null> {
   try {
-    console.log('Fetching portfolio data from GitHub...');
+    console.log("Fetching portfolio data from GitHub...");
     const response = await fetch(GITHUB_JSON_URL, {
       headers: {
-        'Cache-Control': 'no-cache',
-        'Accept': 'application/json',
+        "Cache-Control": "no-cache",
+        Accept: "application/json",
       },
     });
 
@@ -28,22 +34,27 @@ async function fetchPortfolioFromGitHub(): Promise<PortfolioData | null> {
     }
 
     const data = await response.json();
-    console.log('Successfully fetched portfolio data from GitHub');
-    
+    console.log("Successfully fetched portfolio data from GitHub");
+
     // Merge with fallback to ensure functions are preserved
     return {
       ...data,
       personal: {
         ...data.personal,
-        profileImage: fallbackData.personal.profileImage, // Restore image require
+        profileImage:
+          fallbackData?.personal?.profileImage ||
+          require("../assets/shahmdmahi.png"),
       },
       footer: {
         ...data.footer,
-        copyright: fallbackData.footer.copyright, // Restore function
+        copyright:
+          fallbackData?.footer?.copyright ||
+          ((year: number) =>
+            `© ${year} ${data.footer?.copyrightText || "Shah Md Mahi. All rights reserved."}`),
       },
     } as PortfolioData;
   } catch (error) {
-    console.error('Error fetching portfolio from GitHub:', error);
+    console.error("Error fetching portfolio from GitHub:", error);
     return null;
   }
 }
@@ -53,17 +64,31 @@ async function fetchPortfolioFromGitHub(): Promise<PortfolioData | null> {
  * This is used as a middle-tier fallback between cache and built-in data
  */
 function getLocalJsonData(): PortfolioData {
-  return {
-    ...portfolioJson,
-    personal: {
-      ...portfolioJson.personal,
-      profileImage: fallbackData.personal.profileImage, // Restore image require
-    },
-    footer: {
-      ...portfolioJson.footer,
-      copyright: fallbackData.footer.copyright, // Restore function
-    },
-  } as PortfolioData;
+  // If fallbackData is available, use it (it already has all the merged data)
+  if (fallbackData && fallbackData.personal) {
+    return fallbackData;
+  }
+
+  // Otherwise construct from JSON
+  if (portfolioJson && portfolioJson.personal) {
+    return {
+      ...portfolioJson,
+      personal: {
+        ...portfolioJson.personal,
+        profileImage: require("../assets/shahmdmahi.png"),
+      },
+      footer: {
+        ...portfolioJson.footer,
+        copyright: (year: number) =>
+          `© ${year} ${portfolioJson.footer?.copyrightText || "Shah Md Mahi. All rights reserved."}`,
+      },
+    } as PortfolioData;
+  }
+
+  // Last resort - throw error as we have no data
+  throw new Error(
+    "No portfolio data available - both fallback and JSON are undefined",
+  );
 }
 
 /**
@@ -73,22 +98,25 @@ async function cachePortfolioData(data: PortfolioData): Promise<void> {
   try {
     const dataString = JSON.stringify(data);
     const timestamp = Date.now().toString();
-    
+
     await AsyncStorage.multiSet([
       [PORTFOLIO_CACHE_KEY, dataString],
       [PORTFOLIO_TIMESTAMP_KEY, timestamp],
     ]);
-    
-    console.log('Portfolio data cached successfully');
+
+    console.log("Portfolio data cached successfully");
   } catch (error) {
-    console.error('Error caching portfolio data:', error);
+    console.error("Error caching portfolio data:", error);
   }
 }
 
 /**
  * Retrieves cached portfolio data from AsyncStorage
  */
-async function getCachedPortfolioData(): Promise<{ data: PortfolioData | null; isExpired: boolean }> {
+async function getCachedPortfolioData(): Promise<{
+  data: PortfolioData | null;
+  isExpired: boolean;
+}> {
   try {
     const [[, cachedData], [, timestamp]] = await AsyncStorage.multiGet([
       PORTFOLIO_CACHE_KEY,
@@ -103,11 +131,31 @@ async function getCachedPortfolioData(): Promise<{ data: PortfolioData | null; i
     const isExpired = cacheAge > CACHE_DURATION;
 
     const data = JSON.parse(cachedData) as PortfolioData;
-    console.log(`Cache ${isExpired ? 'expired' : 'valid'} (age: ${Math.round(cacheAge / 1000 / 60)} minutes)`);
+    console.log(
+      `Cache ${isExpired ? "expired" : "valid"} (age: ${Math.round(cacheAge / 1000 / 60)} minutes)`,
+    );
 
-    return { data, isExpired };
+    // Restore non-serializable values (functions, images) that were lost in JSON
+    const restoredData = {
+      ...data,
+      personal: {
+        ...data.personal,
+        profileImage:
+          fallbackData?.personal?.profileImage ||
+          require("../assets/shahmdmahi.png"),
+      },
+      footer: {
+        ...data.footer,
+        copyright:
+          fallbackData?.footer?.copyright ||
+          ((year: number) =>
+            `© ${year} ${data.footer?.copyrightText || "Shah Md Mahi. All rights reserved."}`),
+      },
+    };
+
+    return { data: restoredData, isExpired };
   } catch (error) {
-    console.error('Error retrieving cached portfolio data:', error);
+    console.error("Error retrieving cached portfolio data:", error);
     return { data: null, isExpired: true };
   }
 }
@@ -117,10 +165,13 @@ async function getCachedPortfolioData(): Promise<{ data: PortfolioData | null; i
  */
 export async function clearPortfolioCache(): Promise<void> {
   try {
-    await AsyncStorage.multiRemove([PORTFOLIO_CACHE_KEY, PORTFOLIO_TIMESTAMP_KEY]);
-    console.log('Portfolio cache cleared');
+    await AsyncStorage.multiRemove([
+      PORTFOLIO_CACHE_KEY,
+      PORTFOLIO_TIMESTAMP_KEY,
+    ]);
+    console.log("Portfolio cache cleared");
   } catch (error) {
-    console.error('Error clearing portfolio cache:', error);
+    console.error("Error clearing portfolio cache:", error);
   }
 }
 
@@ -131,7 +182,9 @@ export async function clearPortfolioCache(): Promise<void> {
  * 3. If cache is expired or doesn't exist, fetch from GitHub
  * 4. If fetch fails, return cached data (even if expired) or fallback data
  */
-export async function getPortfolioData(forceRefresh = false): Promise<PortfolioData> {
+export async function getPortfolioData(
+  forceRefresh = false,
+): Promise<PortfolioData> {
   try {
     // Check cache first (unless forced refresh)
     if (!forceRefresh) {
@@ -139,28 +192,28 @@ export async function getPortfolioData(forceRefresh = false): Promise<PortfolioD
 
       // If cache is valid, return it immediately
       if (cachedData && !isExpired) {
-        console.log('Using cached portfolio data');
+        console.log("Using cached portfolio data");
         return cachedData;
       }
 
       // If cache exists but is expired, try to fetch new data
       // but return cached data if fetch fails
       if (cachedData && isExpired) {
-        console.log('Cache expired, fetching fresh data...');
+        console.log("Cache expired, fetching fresh data...");
         const freshData = await fetchPortfolioFromGitHub();
-        
+
         if (freshData) {
           await cachePortfolioData(freshData);
           return freshData;
         }
-        
-        console.log('Fetch failed, using expired cache');
+
+        console.log("Fetch failed, using expired cache");
         return cachedData;
       }
     }
 
     // No cache or forced refresh - fetch from GitHub
-    console.log('Fetching fresh portfolio data...');
+    console.log("Fetching fresh portfolio data...");
     const freshData = await fetchPortfolioFromGitHub();
 
     if (freshData) {
@@ -171,16 +224,16 @@ export async function getPortfolioData(forceRefresh = false): Promise<PortfolioD
     // If all fails, check if we have any cached data
     const { data: cachedData } = await getCachedPortfolioData();
     if (cachedData) {
-      console.log('Using cached data as fallback');
+      console.log("Using cached data as fallback");
       return cachedData;
     }
 
     // Use local JSON file as fallback
-    console.log('Using local portfolio.json as fallback');
+    console.log("Using local portfolio.json as fallback");
     return getLocalJsonData();
   } catch (error) {
-    console.error('Error in getPortfolioData:', error);
-    
+    console.error("Error in getPortfolioData:", error);
+
     // Try to return cached data on error
     try {
       const { data: cachedData } = await getCachedPortfolioData();
@@ -188,7 +241,7 @@ export async function getPortfolioData(forceRefresh = false): Promise<PortfolioD
         return cachedData;
       }
     } catch (cacheError) {
-      console.error('Error retrieving cache on fallback:', cacheError);
+      console.error("Error retrieving cache on fallback:", cacheError);
     }
 
     // Return local JSON as last resort
@@ -204,7 +257,7 @@ export async function prefetchPortfolioData(): Promise<void> {
   try {
     await getPortfolioData();
   } catch (error) {
-    console.error('Error prefetching portfolio data:', error);
+    console.error("Error prefetching portfolio data:", error);
   }
 }
 
@@ -228,7 +281,7 @@ export async function getCacheStatus(): Promise<{
 
     return { hasCachedData, isExpired, cacheAge };
   } catch (error) {
-    console.error('Error getting cache status:', error);
+    console.error("Error getting cache status:", error);
     return { hasCachedData: false, isExpired: true, cacheAge: null };
   }
 }
