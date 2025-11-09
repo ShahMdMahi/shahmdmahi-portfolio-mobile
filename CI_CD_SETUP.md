@@ -1,22 +1,27 @@
 # CI/CD Setup Guide
 
 ## Overview
+
 This project uses **GitHub Actions** and **EAS Build** for continuous integration and deployment. Builds are triggered automatically on push or can be manually triggered through the GitHub Actions UI.
 
 ## Prerequisites
 
 ### 1. Expo Account
+
 - Create an account at [expo.dev](https://expo.dev)
 - Join or create an organization: `shah.md.mahi` (already configured in `app.json`)
 
 ### 2. EAS CLI Installation
+
 ```bash
 npm install -g eas-cli
 eas login
 ```
 
 ### 3. Project Configuration
+
 The project is already configured with:
+
 - Project ID: `af409843-7410-45ac-895d-68e3a67c67f0`
 - Owner: `shah.md.mahi`
 
@@ -25,6 +30,7 @@ The project is already configured with:
 Add the following secret to your GitHub repository:
 
 ### Required Secret
+
 1. Go to: `Settings` → `Secrets and variables` → `Actions` → `New repository secret`
 
 2. **EXPO_TOKEN**
@@ -33,6 +39,7 @@ Add the following secret to your GitHub repository:
    - Value: Your generated token from Expo dashboard
 
 ### Optional Secrets (for store submission)
+
 These are only needed when you're ready to submit to app stores:
 
 - **GOOGLE_SERVICE_ACCOUNT_JSON**: For Android Play Store submission
@@ -47,26 +54,32 @@ These are only needed when you're ready to submit to app stores:
 ## Build Profiles
 
 ### Development
+
 ```bash
 eas build --profile development --platform android
 ```
+
 - Development client enabled
 - Internal distribution
 - Used for testing with expo-dev-client
 
 ### Preview
+
 ```bash
 eas build --profile preview --platform all
 ```
+
 - Internal distribution
 - APK for Android (not AAB)
 - Installable builds for testing
 - **Triggers automatically on push to `develop` branch**
 
 ### Production
+
 ```bash
 eas build --profile production --platform all
 ```
+
 - Production-ready builds
 - AAB for Android, IPA for iOS
 - Auto-increment version
@@ -77,10 +90,12 @@ eas build --profile production --platform all
 ### Build Workflow (`.github/workflows/build.yml`)
 
 #### Automatic Triggers
+
 - **Push to `develop`**: Builds preview profile for all platforms
 - **Push to `master`/`main`**: Builds production profile for all platforms
 
 #### Manual Trigger
+
 1. Go to: `Actions` → `EAS Build` → `Run workflow`
 2. Select:
    - **Profile**: development, preview, or production
@@ -90,6 +105,7 @@ eas build --profile production --platform all
 ### Submit Workflow (`.github/workflows/submit.yml`)
 
 #### Manual Trigger Only
+
 1. Build must be completed first
 2. Go to: `Actions` → `EAS Submit to Stores` → `Run workflow`
 3. Select:
@@ -100,14 +116,18 @@ eas build --profile production --platform all
 ## Environment Variables
 
 ### Local Development
+
 Create `.env` file (already created):
+
 ```env
 EXPO_PUBLIC_PORTFOLIO_GITHUB_URL=https://raw.githubusercontent.com/ShahMdMahi/shahmdmahi-portfolio-mobile/master/constants/portfolio.json
 EXPO_PUBLIC_APP_ENV=development
 ```
 
 ### Production
+
 Environment variables are automatically set per profile in `eas.json`:
+
 - Development: `EXPO_PUBLIC_APP_ENV=development`
 - Preview: `EXPO_PUBLIC_APP_ENV=preview`
 - Production: `EXPO_PUBLIC_APP_ENV=production`
@@ -115,6 +135,7 @@ Environment variables are automatically set per profile in `eas.json`:
 ## Build Commands
 
 ### Local Builds
+
 ```bash
 # Development build
 eas build --profile development --platform android --local
@@ -127,12 +148,14 @@ eas build --profile production --platform all
 ```
 
 ### Check Build Status
+
 ```bash
 eas build:list
 eas build:view [BUILD_ID]
 ```
 
 ### Submit to Stores
+
 ```bash
 # Android
 eas submit --platform android --latest
@@ -174,24 +197,29 @@ GitHub Actions UI
 ## Troubleshooting
 
 ### Build Fails with "Missing EXPO_TOKEN"
+
 - Check that `EXPO_TOKEN` secret is added in GitHub repository settings
 - Token must have admin permissions for the project
 
 ### Build Fails with Version Conflict
+
 - Ensure `autoIncrement: true` is set in `eas.json` for production
 - Or manually update version in `app.json`
 
 ### iOS Build Requires Apple Developer Account
+
 - You need an active Apple Developer Program membership ($99/year)
 - Configure certificates and provisioning profiles in EAS
 
 ### Android Build Requires Keystore
+
 - EAS automatically generates and manages keystores
 - Store credentials are saved securely in Expo servers
 
 ## Next Steps
 
 1. **Add EXPO_TOKEN to GitHub Secrets**
+
    ```
    Repository Settings → Secrets → Actions → New secret
    Name: EXPO_TOKEN
@@ -199,6 +227,7 @@ GitHub Actions UI
    ```
 
 2. **Create a `develop` branch** (optional, for preview builds)
+
    ```bash
    git checkout -b develop
    git push -u origin develop

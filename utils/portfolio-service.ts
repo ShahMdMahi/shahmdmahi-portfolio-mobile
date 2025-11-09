@@ -1,6 +1,6 @@
 import {
-    portfolioData as fallbackData,
-    PortfolioData,
+  portfolioData as fallbackData,
+  PortfolioData,
 } from "@/constants/portfolio";
 import portfolioJson from "@/constants/portfolio.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
