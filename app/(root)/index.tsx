@@ -13,22 +13,20 @@ import { OfflineIndicator } from '@/components/ui/offline-indicator';
 import { ScrollProgressIndicator } from '@/components/ui/scroll-progress-indicator';
 import { SectionDivider } from '@/components/ui/section-divider';
 import { colors } from '@/constants/colors';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import React, { useRef, useState } from 'react';
-import { RefreshControl, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, RefreshControl, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const scrollViewRef = useRef<ScrollView>(null);
   const projectsRef = useRef<View>(null);
   const contactRef = useRef<View>(null);
 
-  const [refreshing, setRefreshing] = useState(false);
+  const { isLoading, isRefreshing, refreshData } = usePortfolio();
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1500);
+  const onRefresh = async () => {
+    await refreshData();
   };
 
   const handleScroll = (event: any) => {
@@ -57,6 +55,17 @@ export default function HomeScreen() {
     );
   };
 
+  // Show loading indicator on initial load
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <StatusBar barStyle="light-content" backgroundColor={colors.dark} />
+        <ActivityIndicator size="large" color={colors.primary} />
+        <Text style={styles.loadingText}>Loading Portfolio...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -75,7 +84,7 @@ export default function HomeScreen() {
         scrollEventThrottle={16}
         refreshControl={
           <RefreshControl
-            refreshing={refreshing}
+            refreshing={isRefreshing}
             onRefresh={onRefresh}
             tintColor={colors.primary}
             colors={[colors.primary, colors.accent]}
@@ -115,6 +124,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.dark,
+  },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    color: colors.text,
+    fontSize: 16,
+    fontFamily: 'Inter_400Regular',
   },
   scrollView: {
     flex: 1,

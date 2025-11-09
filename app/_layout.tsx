@@ -1,4 +1,5 @@
 import { ErrorBoundary } from '@/components/error-boundary';
+import { PortfolioProvider } from '@/contexts/portfolio-context';
 import { Inter_400Regular, Inter_600SemiBold, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import { Stack } from 'expo-router';
@@ -35,16 +36,18 @@ export default function RootLayout() {
 
   return (
     <ErrorBoundary>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: '#0f172a' },
-          animation: 'fade',
-        }}
-      >
-        <Stack.Screen name="(root)/index" />
-      </Stack>
+      <PortfolioProvider>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#0f172a' },
+            animation: 'fade',
+          }}
+        >
+          <Stack.Screen name="(root)/index" />
+        </Stack>
+      </PortfolioProvider>
     </ErrorBoundary>
   );
 }

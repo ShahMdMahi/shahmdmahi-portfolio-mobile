@@ -2,13 +2,14 @@ import { GradientCard } from '@/components/ui/gradient-card';
 import { SectionTitle } from '@/components/ui/section-title';
 import { SkillBadge } from '@/components/ui/skill-badge';
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 export const SkillsSection = React.memo(() => {
+  const { portfolioData } = usePortfolio();
   const skills = portfolioData.skills;
 
   return (

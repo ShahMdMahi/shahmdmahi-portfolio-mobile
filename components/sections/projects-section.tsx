@@ -3,7 +3,7 @@ import { GradientCard } from '@/components/ui/gradient-card';
 import { ProjectGallery } from '@/components/ui/project-gallery';
 import { SectionTitle } from '@/components/ui/section-title';
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { useHaptics } from '@/hooks/use-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
@@ -11,6 +11,7 @@ import { ActionSheetIOS, Alert, Linking, Platform, Pressable, Share, StyleSheet,
 import * as Animatable from 'react-native-animatable';
 
 export const ProjectsSection = React.memo(() => {
+  const { portfolioData } = usePortfolio();
   const projects = portfolioData.projects;
   const haptics = useHaptics();
   const [galleryVisible, setGalleryVisible] = useState(false);

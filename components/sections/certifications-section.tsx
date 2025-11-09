@@ -1,5 +1,5 @@
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
@@ -7,6 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import { SectionTitle } from '../ui/section-title';
 
 export const CertificationsSection = React.memo(() => {
+  const { portfolioData } = usePortfolio();
   const renderCertification = (item: typeof portfolioData.certifications[0], index: number) => (
     <Animatable.View
       key={index}

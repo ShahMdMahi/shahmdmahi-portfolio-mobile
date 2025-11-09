@@ -1,11 +1,12 @@
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
 export const Footer: React.FC = () => {
+  const { portfolioData } = usePortfolio();
   const currentYear = new Date().getFullYear();
 
   return (

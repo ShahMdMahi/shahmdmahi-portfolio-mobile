@@ -4,7 +4,7 @@ import { GradientCard } from '@/components/ui/gradient-card';
 import { ParticleEffect } from '@/components/ui/particle-effect';
 import { SectionTitle } from '@/components/ui/section-title';
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { useHaptics } from '@/hooks/use-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import * as MailComposer from 'expo-mail-composer';
@@ -13,6 +13,7 @@ import { Alert, Linking, Platform, Pressable, StyleSheet, Text, TextInput, View 
 import * as Animatable from 'react-native-animatable';
 
 export const ContactSection = React.memo(() => {
+  const { portfolioData } = usePortfolio();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

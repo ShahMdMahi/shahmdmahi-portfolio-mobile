@@ -1,7 +1,7 @@
 import { AnimatedButton } from '@/components/ui/animated-button';
 import { colors } from '@/constants/colors';
 import { getNativeGlow, getNativeShadow } from '@/constants/native-styles';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { useHaptics } from '@/hooks/use-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,6 +17,7 @@ interface HeroSectionProps {
 }
 
 export const HeroSection = React.memo<HeroSectionProps>(({ onViewProjects, onContactMe }) => {
+  const { portfolioData } = usePortfolio();
   const haptics = useHaptics();
   return (
     <View style={styles.container}>

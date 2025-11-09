@@ -1,5 +1,5 @@
 import { colors } from '@/constants/colors';
-import { portfolioData } from '@/constants/portfolio';
+import { usePortfolio } from '@/contexts/portfolio-context';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -7,6 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import { SectionTitle } from '../ui/section-title';
 
 export const TestimonialsSection = React.memo(() => {
+  const { portfolioData } = usePortfolio();
   const renderStars = (rating: number) => {
     return (
       <View style={styles.starsContainer}>
